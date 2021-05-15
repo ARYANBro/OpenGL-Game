@@ -1,0 +1,48 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Build and debug (debug)",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/../Binaries/Debug/Sandbox/Sandbox.exe",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"miDebuggerPath": "gdb.exe",
+			"setupCommands": [
+				{
+					"description": "Enable pretty-printing for gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			],
+			"preLaunchTask": "Build debug"
+		},
+		{
+			"name": "Build and debug (release)",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/../Binaries/Release/Sandbox/Sandbox.exe",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"miDebuggerPath": "gdb.exe",
+			"setupCommands": [
+				{
+					"description": "Enagle pretty-printing for gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			],
+			"preLaunchTask": "Build release"
+
+		}
+	]
+}

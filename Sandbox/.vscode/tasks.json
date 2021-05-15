@@ -1,0 +1,71 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Generate project files debug",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/../",
+            },
+            "command": "Build\\cmake\\bin\\cmake.exe",
+            "args": [
+                "-S.",
+                "-BBinaries",
+                "-DCMAKE_BUILD_TYPE=Debug",
+                "-GMinGW Makefiles"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Generate project files release",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/../",
+            },
+            "command": "Build\\cmake\\bin\\cmake.exe",
+            "args": [
+                "-source", ".",
+                "-build", "Binaries",
+                "-DCMAKE_BUILD_TYPE=release",
+                "-GMinGW Makefiles"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Build debug",
+            "type": "shell",
+            "dependsOn": [ "Generate project files debug" ],
+            "options": {
+                "cwd": "${workspaceFolder}/../"
+            },
+            "command": "Build\\cmake\\bin\\cmake.exe",
+            "args": [
+                "--build",
+                "Binaries"
+            ],
+            "group": "build",
+            "problemMatcher": [ "$gcc" ]
+        },
+        {
+            "label": "Build release",
+            "type": "shell",
+            "dependsOn": [ "Generate project files release" ],
+            "options": { 
+                "cwd": "${workspaceFolder}/../"
+            },
+            "command": "Build\\cmake\\bin\\cmake.exe",
+            "args": [
+                "--build", 
+                "Binaries"
+            ],
+            "group": "build",
+            "problemMatcher": [ "$gcc" ]
+        }
+    ]
+}
