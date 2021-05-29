@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19.6)
 
-project(Project)
+project(OpenGL-Game)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 set(CMAKE_CXX_STANDARD 20)
@@ -15,5 +15,6 @@ add_link_options(
 	-static
 )
 
-add_subdirectory(Project ${OutputDirectory}/Project)
-
+add_subdirectory(OpenGL-Game ${OutputDirectory}/OpenGL-Game)
+add_subdirectory(OpenGL-Game/Vendor/glfw ${LibraryDirectory}/glfw)
+add_subdirectory(OpenGL-Game/Vendor/glad ${LibraryDirectory}/glad)
