@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19.6)
 
-project(GraphicsProgramming)
+project(Project)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 set(CMAKE_CXX_STANDARD 20)
@@ -15,5 +15,5 @@ add_link_options(
 	-static
 )
 
-add_subdirectory(Sandbox ${OutputDirectory}/Sandbox)
+add_subdirectory(Project ${OutputDirectory}/Project)
 
