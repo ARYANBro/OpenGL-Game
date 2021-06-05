@@ -14,8 +14,6 @@ Application::Application(std::uint_fast32_t width, std::uint_fast32_t height, co
 			<< "Vendor: " << m_RenderAPI.GetVendorName() << std::endl
 			<< "Renderer: " << m_RenderAPI.GetRendererName() << std::endl
 			<< "Version: " << m_RenderAPI.GetVersionName() << std::endl;
-
-	m_Window.SetEventCallback(BIND_FUNCTION(OnEvent));
 }
 
 void Application::Start()
@@ -43,11 +41,5 @@ void Application::Start()
 }
 
 void Application::OnEvent(const Event& event)
-{
-	EventDispatcher dispatcher(event);
-	dispatcher.Dispatch<WindowResizeEvent>(BIND_FUNCTION(OnWindowResize));
-}
-
-void Application::OnWindowResize(const WindowResizeEvent& event)
 {
 }

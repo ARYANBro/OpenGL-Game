@@ -9,7 +9,6 @@
 virtual EventType GetType() const noexcept override { return EventType::class; }\
 static EventType GetStaticType() noexcept { return EventType:::class; }
 				
-
 enum class EventType
 {
 	Event, WindowResizeEvent
@@ -21,7 +20,6 @@ public:
 	virtual EventType GetType() const noexcept = 0;
 	static EventType GetStaticType() noexcept { return EventType::Event; }
 };
-
 
 class EventDispatcher
 {
