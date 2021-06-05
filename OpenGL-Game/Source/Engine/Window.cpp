@@ -1,5 +1,8 @@
 #include "Window.h"
 
+#include "ApplicationEvents.h"
+#include "Application.h"
+
 #include <GLFW/glfw3.h>
 
 #include <stdexcept>
@@ -19,6 +22,16 @@ Window::Window(std::uint_fast32_t width, std::uint_fast32_t height, const std::s
 	m_Window = glfwCreateWindow(iWidth, iHeight, name.c_str(), nullptr, nullptr);
 
 	glfwMakeContextCurrent(m_Window);
+
+	glfwSetWindowUserPointer(m_Window, &m_EventCallback);
+
+	glfwSetFramebufferSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+	{
+		WindowResizeEvent event(width, height);
+		EventCallback* callback = reinterpret_cast<EventCallback*>(glfwGetWindowUserPointer(window));
+
+		(*callback)(event);
+	});
 }
 
 Window::~Window()

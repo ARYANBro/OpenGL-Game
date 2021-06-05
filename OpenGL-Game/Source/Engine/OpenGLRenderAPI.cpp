@@ -1,4 +1,4 @@
-#include "OpenGLContext.h"
+#include "OpenGLRenderAPI.h"
 
 #include "Window.h"
 
@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <iostream>
 
-OpenGLContext::OpenGLContext(const Window& window)
+OpenGLRenderAPI::OpenGLRenderAPI(const Window& window)
 	: m_Window(window)
 {
 	int gladInitResult = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
@@ -46,4 +46,18 @@ OpenGLContext::OpenGLContext(const Window& window)
 	{
 		glViewport(0, 0, width, height);
 	});
+}
+
+void OpenGLRenderAPI::SetClearColor(float r, float g, float b, float a) const noexcept
+{
+	glClearColor(r, g, b, a);
+}
+
+void OpenGLRenderAPI::SetViewportSize(int x, int y, int width, int height) const noexcept
+{
+}
+
+void OpenGLRenderAPI::Clear() const noexcept
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

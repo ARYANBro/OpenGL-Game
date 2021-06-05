@@ -2,10 +2,13 @@
 
 class Window;
 
-class OpenGLContext
+class OpenGLRenderAPI
 {
 public:
-	OpenGLContext(const Window& window);
+	OpenGLRenderAPI(const Window& window);
+
+	void SetClearColor(float r, float g, float b, float a) const noexcept;
+	void Clear() const noexcept;
 
 	const char* GetVendorName() const noexcept { return m_Vendor; }
 	const char* GetRendererName() const noexcept { return m_Renderer; }

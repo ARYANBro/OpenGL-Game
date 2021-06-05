@@ -1,21 +1,53 @@
 #include "Application.h"
 
+#include "DeltaTime.h"
+#include "ApplicationEvents.h"
+
+#include <GLFW/glfw3.h>
+
 #include <iostream>
 
 Application::Application(std::uint_fast32_t width, std::uint_fast32_t height, const std::string& title)
-	: m_Window(width, height, title), m_OpenGLContext(m_Window)
+	: m_Window(width, height, title), m_RenderAPI(m_Window)
 {
 	std::cout << "OpenGL info:\n"
-			<< "Vendor: " << m_OpenGLContext.GetVendorName() << std::endl
-			<< "Renderer: " << m_OpenGLContext.GetRendererName() << std::endl
-			<< "Version: " << m_OpenGLContext.GetVersionName() << std::endl;
+			<< "Vendor: " << m_RenderAPI.GetVendorName() << std::endl
+			<< "Renderer: " << m_RenderAPI.GetRendererName() << std::endl
+			<< "Version: " << m_RenderAPI.GetVersionName() << std::endl;
+
+	m_Window.SetEventCallback(BIND_FUNCTION(OnEvent));
 }
 
 void Application::Start()
 {
+	OnBegin();
+
+	DeltaTime deltaT;
+
 	while (m_Window.IsRunning())
 	{
+		m_RenderAPI.SetClearColor(0.01f, 0.01f, 0.01f, 1.0f);
+		m_RenderAPI.Clear();
+
 		m_Window.PollEvents();
+
+		deltaT.Calculate();
+
+		OnUpdate(deltaT);
+		OnRender();
+
 		m_Window.SwapBuffers();
 	}
+
+	OnEnd();
+}
+
+void Application::OnEvent(const Event& event)
+{
+	EventDispatcher dispatcher(event);
+	dispatcher.Dispatch<WindowResizeEvent>(BIND_FUNCTION(OnWindowResize));
+}
+
+void Application::OnWindowResize(const WindowResizeEvent& event)
+{
 }
