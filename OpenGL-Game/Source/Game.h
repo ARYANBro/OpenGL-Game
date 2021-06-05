@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Engine/Application.h"
+#include "Engine/Shader.h"
 
 enum class GameStateType
 {
@@ -45,9 +46,14 @@ class GameStateFinished : public GameState
 class Game : public Application
 {
 public:
+	Game(std::uint_fast32_t width, std::uint_fast32_t height, const std::string& title)
+		: Application(width, height, title) {}
+
 	GameState* m_GameState;
 
 	virtual void OnBegin() override;
 	virtual void OnUpdate(const DeltaTime& deltaT) override;
 	virtual void OnEnd() override;
+private:
+	Shader m_Shader;
 };

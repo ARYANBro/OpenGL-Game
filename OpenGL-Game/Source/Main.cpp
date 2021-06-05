@@ -1,4 +1,4 @@
-#include "Engine/Application.h"
+#include "Game.h"
 
 #include <iostream>
 
@@ -6,11 +6,11 @@ int main()
 {
 	try
 	{
-		Application app(1280, 700, "OpenGL-Game");
-		app.Start();
+		Game game(1280, 700, "OpenGL-Game");
+		game.Start();
 	}
 	catch (const std::exception& e)
 	{
-		std::cerr << "Exception occured in main(): " << e.what() << std::endl;
+		std::cerr << "Exception occured in main():\n" << e.what() << std::endl;
 	}
 }
