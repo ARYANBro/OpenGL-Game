@@ -12,6 +12,7 @@ target_link_libraries(${PROJECT_NAME}
 	glfw
 	glad
 	stb_image
+	glm
 )
 
 target_include_directories(${PROJECT_NAME} 

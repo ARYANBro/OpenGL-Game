@@ -1,6 +1,8 @@
 #include "OpenGLRenderAPI.h"
 
 #include "Window.h"
+#include "Shader.h"
+#include "VertexArray.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -56,4 +58,14 @@ void OpenGLRenderAPI::SetClearColor(float r, float g, float b, float a) noexcept
 void OpenGLRenderAPI::Clear() noexcept
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void OpenGLRenderAPI::Render(const VertexArray& vertexArray, const Shader& shader) noexcept
+{
+	vertexArray.Bind();
+
+	shader.Bind();
+
+	glDrawElements(GL_TRIANGLES, vertexArray.GetNumIndices(), GL_UNSIGNED_INT, nullptr);
+	vertexArray.Unbind();
 }

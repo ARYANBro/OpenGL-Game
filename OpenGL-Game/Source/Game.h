@@ -54,7 +54,9 @@ public:
 
 	virtual void OnBegin() override;
 	virtual void OnUpdate(const DeltaTime& deltaT) override;
+	virtual void OnRender() override;
 	virtual void OnEnd() override;
+
 private:
 	Shader* m_Shader;
 	Texture* m_Texture;

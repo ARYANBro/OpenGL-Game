@@ -1,14 +1,17 @@
 #pragma once
 
 class Window;
+class Shader;
+class VertexArray;
 
 class OpenGLRenderAPI
 {
 public:
 	OpenGLRenderAPI(const Window& window);
 
-	void SetClearColor(float r, float g, float b, float a) const noexcept;
-	void Clear() const noexcept;
+	static void SetClearColor(float r, float g, float b, float a) noexcept;
+	static void Clear() noexcept;
+	static void Render(const VertexArray& vertexArray, const Shader& shader) noexcept;
 
 	const char* GetVendorName() const noexcept { return m_Vendor; }
 	const char* GetRendererName() const noexcept { return m_Renderer; }
