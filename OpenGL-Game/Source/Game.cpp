@@ -42,10 +42,10 @@ void Game::OnBegin()
 {
 	m_GameState = &GameState::s_GameStateActive;
 
-	// Shader shader;
-	m_Shader.Load("Assets\\Shaders\\Shader.glsl");
+	m_Shader = m_ShaderLibrary.Load("Assets\\Shaders\\Shader.glsl");
 
-	// shader.Unbind();
+	m_Texture = m_TextureLibrary.Load("Assets\\Textures\\Planks\\Planks012_4K_Color.png");
+	
 }
 
 void Game::OnUpdate(const DeltaTime& deltaT)
@@ -64,19 +64,23 @@ void Game::OnUpdate(const DeltaTime& deltaT)
 	glCreateBuffers(1, &vbo);
 
 	float vertices[] = {
-		-0.5f,  0.5f, 
-		 0.5f,  0.5f,
-		-0.5f, -0.5f,
-		 0.5f, -0.5f
+		-0.5f,  0.5f,  0.0f, 1.0f,
+		 0.5f,  0.5f,  1.0f, 1.0f,
+		-0.5f, -0.5f,  0.0f, 0.0f,
+		 0.5f, -0.5f,  1.0f, 0.0f
 	};
 
 	glNamedBufferData(vbo, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glVertexArrayVertexBuffer(vao, 0, vbo, 0, 2 * sizeof(float));
+	glVertexArrayVertexBuffer(vao, 0, vbo, 0, 4 * sizeof(float));
 
 	glEnableVertexArrayAttrib(vao, 0);
 	glVertexArrayAttribFormat(vao, 0, 2, GL_FLOAT, GL_TRUE, 0);
 	glVertexArrayAttribBinding(vao, 0, 0);
-	
+
+	glEnableVertexArrayAttrib(vao, 1);
+	glVertexArrayAttribFormat(vao, 1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float));
+	glVertexArrayAttribBinding(vao, 1, 0);
+
 	GLuint ibo;
 	glCreateBuffers(1, &ibo);
 
@@ -90,14 +94,18 @@ void Game::OnUpdate(const DeltaTime& deltaT)
 
 	glBindVertexArray(vao);
 
-	m_Shader.Bind();
+	m_Shader->Bind();
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+	m_Texture->Bind(0);
+	m_Shader->SetInt("u_Texture", 0);
 
-	m_Shader.Unbind();
+	glDrawElements(GL_TRIANGLES, std::size(indices), GL_UNSIGNED_INT, nullptr);
+
+	m_Texture->Unbind();
+	m_Shader->Unbind();
 
 	glDeleteVertexArrays(1, &vao);
-	glDeleteBuffers(1, &vbo);
+ 	glDeleteBuffers(1, &vbo);
 	glDeleteBuffers(1, &ibo);
 }
 

@@ -108,14 +108,12 @@ static void LinkgShaderProgram(GLuint shaderProgram)
 	}
 }
 
-Shader::Shader() noexcept
+Shader::Shader(const std::string& filePath)
+	: m_FilePath(filePath)
 {
 	m_RendererID = glCreateProgram();
-}
 
-void Shader::Load(const std::string& filePath)
-{
-	// Read the file path
+		// Read the file path
 	std::string file = ReadFile(filePath);
 
 	// Differentiate the shaders
@@ -138,6 +136,11 @@ void Shader::Load(const std::string& filePath)
 		glDeleteShader(shader);
 
 	LinkgShaderProgram(m_RendererID);
+}
+
+Shader::~Shader() noexcept
+{
+	glDeleteProgram(m_RendererID);
 }
 
 std::string Shader::ReadFile(const std::string& filePath)
@@ -207,4 +210,24 @@ void Shader::Bind() const noexcept
 void Shader::Unbind() const noexcept
 {
 	glUseProgram(0);
+}
+
+void Shader::SetUInt(const std::string& name, std::uint_fast32_t value) const
+{
+	glProgramUniform1ui(m_RendererID, GetUniformLocation(name), value);
+}
+
+void Shader::SetInt(const std::string& name, std::int_fast32_t value) const 
+{
+	glProgramUniform1i(m_RendererID, GetUniformLocation(name), value);
+}
+
+GLint Shader::GetUniformLocation(const std::string& name) const
+{
+	GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+
+	if (location == -1)
+		throw std::runtime_error("Could not find uniform: " + name);
+
+	return location;
 }

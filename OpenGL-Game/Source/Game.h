@@ -2,6 +2,7 @@
 
 #include "Engine/Application.h"
 #include "Engine/Shader.h"
+#include "Engine/Texture.h"
 
 enum class GameStateType
 {
@@ -55,5 +56,9 @@ public:
 	virtual void OnUpdate(const DeltaTime& deltaT) override;
 	virtual void OnEnd() override;
 private:
-	Shader m_Shader;
+	Shader* m_Shader;
+	Texture* m_Texture;
+
+	ShaderLibrary m_ShaderLibrary;
+	TextureLibrary m_TextureLibrary;
 };

@@ -18,3 +18,4 @@ add_link_options(
 add_subdirectory(OpenGL-Game ${OutputDirectory}/OpenGL-Game)
 add_subdirectory(OpenGL-Game/Vendor/glfw ${LibraryDirectory}/glfw)
 add_subdirectory(OpenGL-Game/Vendor/glad ${LibraryDirectory}/glad)
+add_subdirectory(OpenGL-Game/Vendor/stb_image ${LibraryDirectory}/stb_image)

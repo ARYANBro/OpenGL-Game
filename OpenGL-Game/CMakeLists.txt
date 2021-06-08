@@ -11,6 +11,7 @@ add_executable(${PROJECT_NAME} ${SourceFiles})
 target_link_libraries(${PROJECT_NAME}
 	glfw
 	glad
+	stb_image
 )
 
 target_include_directories(${PROJECT_NAME} 

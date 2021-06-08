@@ -48,12 +48,12 @@ OpenGLRenderAPI::OpenGLRenderAPI(const Window& window)
 	});
 }
 
-void OpenGLRenderAPI::SetClearColor(float r, float g, float b, float a) const noexcept
+void OpenGLRenderAPI::SetClearColor(float r, float g, float b, float a) noexcept
 {
 	glClearColor(r, g, b, a);
 }
 
-void OpenGLRenderAPI::Clear() const noexcept
+void OpenGLRenderAPI::Clear() noexcept
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
