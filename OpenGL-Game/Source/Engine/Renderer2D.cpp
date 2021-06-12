@@ -2,6 +2,7 @@
 
 #include "Texture.h"
 #include "Shader.h"
+#include "Scene.h"
 #include "OpenGLRenderAPI.h"
 #include "VertexBuffer.h"
 
@@ -57,4 +58,12 @@ void Renderer2D::DrawSprite(const glm::mat4& transform, const Texture& texture, 
 	OpenGLRenderAPI::Render(*s_SpriteData.VertexArray, *s_SpriteData.Shader);
 
 	texture.Unbind();
+}
+
+void Renderer2D::RenderScene(Scene* scene)
+{
+	scene->m_Registry.EachComponent<SpriteRendererComponent>([](const SpriteRendererComponent& component)
+	{
+		DrawSprite(glm::mat4(1.0f), *component.Texture);
+	});
 }

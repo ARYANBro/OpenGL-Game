@@ -45,9 +45,8 @@ void Game::OnBegin()
 {
 	m_GameState = &GameState::s_GameStateActive;
 
-	m_Texture = m_TextureLibrary.Load("Assets\\Textures\\Planks\\Planks012_4K_Color.png");
-
 	Renderer2D::Init(m_ShaderLibrary);
+	m_Scene.OnBegin();
 }
 
 void Game::OnUpdate(const DeltaTime& deltaT)
@@ -58,14 +57,16 @@ void Game::OnUpdate(const DeltaTime& deltaT)
 		m_GameState = state;
 
 	m_GameState->OnUpdate(*this, deltaT);
+	m_Scene.OnUpdate(deltaT);
 }
 
 void Game::OnRender()
 {
-	Renderer2D::DrawSprite(glm::mat4(1.0f), *m_Texture);
+	m_Scene.OnRender();
 }
 
 void Game::OnEnd()
 {
+	m_Scene.OnEnd();
 	Renderer2D::Deinit();
 }

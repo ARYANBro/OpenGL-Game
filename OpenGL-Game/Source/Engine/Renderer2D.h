@@ -9,6 +9,7 @@
 class Texture;
 class Shader;
 class ShaderLibrary;
+class Scene;
 
 class Renderer2D
 {
@@ -17,6 +18,7 @@ public:
 	static void Deinit() noexcept;
 
 	static void DrawSprite(const glm::mat4& transform, const Texture& texture, glm::vec3 color = glm::vec3(0.0f));
+	static void RenderScene(Scene* scene);
 
 private:
 	struct SpriteData

@@ -3,6 +3,7 @@
 #include "Engine/Application.h"
 #include "Engine/Shader.h"
 #include "Engine/Texture.h"
+#include "Scene.h"
 
 enum class GameStateType
 {
@@ -48,19 +49,20 @@ class Game : public Application
 {
 public:
 	Game(std::uint_fast32_t width, std::uint_fast32_t height, const std::string& title)
-		: Application(width, height, title) {}
-
-	GameState* m_GameState;
+		: Application(width, height, title), m_Scene(this) {}
 
 	virtual void OnBegin() override;
 	virtual void OnUpdate(const DeltaTime& deltaT) override;
 	virtual void OnRender() override;
 	virtual void OnEnd() override;
 
-private:
-	Shader* m_Shader;
-	Texture* m_Texture;
+	ShaderLibrary& GetShaderLibrary() noexcept { return m_ShaderLibrary; }
+	TextureLibrary& GetTextureLibrary() noexcept { return m_TextureLibrary; }
 
+private:
+	Scene m_Scene;
+
+	GameState* m_GameState;
 	ShaderLibrary m_ShaderLibrary;
 	TextureLibrary m_TextureLibrary;
 };
