@@ -1,5 +1,7 @@
 #include "Shader.h"
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include <fstream>
 #include <cassert>
 #include <forward_list>
@@ -113,7 +115,7 @@ Shader::Shader(const std::string& filePath)
 {
 	m_RendererID = glCreateProgram();
 
-		// Read the file path
+	// Read the file path
 	std::string file = ReadFile(filePath);
 
 	// Differentiate the shaders
@@ -220,6 +222,16 @@ void Shader::SetUInt(const std::string& name, std::uint_fast32_t value) const
 void Shader::SetInt(const std::string& name, std::int_fast32_t value) const 
 {
 	glProgramUniform1i(m_RendererID, GetUniformLocation(name), value);
+}
+
+void Shader::SetFloat3(const std::string& name, glm::vec3 value) const
+{
+	glProgramUniform3f(m_RendererID, GetUniformLocation(name), value.x, value.y, value.z);
+}
+
+void Shader::SetMat4(const std::string& name, const glm::mat4& matrix) const
+{
+	glProgramUniformMatrix4fv(m_RendererID, GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 GLint Shader::GetUniformLocation(const std::string& name) const

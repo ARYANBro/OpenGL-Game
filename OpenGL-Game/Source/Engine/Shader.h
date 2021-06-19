@@ -3,6 +3,7 @@
 #include "ResourceLibrary.h"
 
 #include <glad/glad.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <forward_list>
 #include <memory>
@@ -23,6 +24,10 @@ public:
 
 	void SetUInt(const std::string& name, std::uint_fast32_t value) const;
 	void SetInt(const std::string& name, std::int_fast32_t value) const;
+
+	void SetFloat3(const std::string& name, glm::vec3 value) const;
+
+	void SetMat4(const std::string& name, const glm::mat4& matrix) const;
 
 private:
 	GLint GetUniformLocation(const std::string& name) const;

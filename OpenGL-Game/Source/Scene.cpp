@@ -21,6 +21,9 @@ Scene::~Scene() noexcept
 Entity Scene::CreateEntity() noexcept
 {
 	Entity entity(m_Registry.CreateEntity(), this);
+	auto transform =  entity.AddComponent<TransformComponent>();
+	transform->Translation = { 0.0f, 0.0f, -1.0f };
+	transform->Scale = glm::vec3(500.0f);
 	return entity;
 }
 
@@ -32,9 +35,6 @@ void Scene::DestroyEntity(const Entity& entity) noexcept
 void Scene::OnBegin()
 {
 	Entity entity = CreateEntity();
-	DestroyEntity(entity);
-	entity = CreateEntity();
-
 	SpriteRendererComponent* component = entity.AddComponent<SpriteRendererComponent>();
 
 	component->Texture = m_Game->GetTextureLibrary().Load("Assets\\Textures\\Planks\\Planks012_4K_Color.png");
@@ -44,13 +44,10 @@ void Scene::OnUpdate(const DeltaTime& deltaT)
 {
 }
 
-void Scene::OnRender()
-{
-	Renderer2D::RenderScene(this);
-}
-
 void Scene::OnEnd()
 {
-	for (EntityData& data : m_Registry.GetEntityData())
-		m_Registry.DestroyEntity(data.EntityID);
+	m_Registry.EachEntity([this](EntityID entity)
+	{
+		m_Registry.DestroyEntity(entity);
+	});
 }

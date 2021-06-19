@@ -20,7 +20,6 @@ public:
 
 	void OnBegin();
 	void OnUpdate(const DeltaTime& deltaT);
-	void OnRender();
 	void OnEnd();
 
 private:

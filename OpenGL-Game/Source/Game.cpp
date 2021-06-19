@@ -19,8 +19,8 @@ GameState* GameStateActive::Update(Game& game, const DeltaTime& deltaT)
 
 void GameStateActive::OnUpdate(Game& game, const DeltaTime& deltaT)
 {
+	game.m_Scene.OnUpdate(deltaT);
 }
-
 
 GameState* GameStateMenu::Update(Game& game, const DeltaTime& deltaT)
 {
@@ -47,6 +47,7 @@ void Game::OnBegin()
 
 	Renderer2D::Init(m_ShaderLibrary);
 	m_Scene.OnBegin();
+	// m_Scene = m_SceneLoader.Load("**file path**");
 }
 
 void Game::OnUpdate(const DeltaTime& deltaT)
@@ -57,12 +58,15 @@ void Game::OnUpdate(const DeltaTime& deltaT)
 		m_GameState = state;
 
 	m_GameState->OnUpdate(*this, deltaT);
-	m_Scene.OnUpdate(deltaT);
 }
 
 void Game::OnRender()
 {
-	m_Scene.OnRender();
+	float right = GetWindow().GetWidth();
+	float top = GetWindow().GetHeight();
+
+	glm::mat4 projection = glm::ortho(-right / 2, right / 2, -top / 2, top / 2);
+	Renderer2D::RenderScene(m_Scene, projection);
 }
 
 void Game::OnEnd()

@@ -60,7 +60,13 @@ public:
 	TextureLibrary& GetTextureLibrary() noexcept { return m_TextureLibrary; }
 
 private:
+	friend class GameStateActive;
+	friend class GameStateMenu;
+	friend class GameStateFinished;
+
+private:
 	Scene m_Scene;
+	// Scene* m_Scene;
 
 	GameState* m_GameState;
 	ShaderLibrary m_ShaderLibrary;

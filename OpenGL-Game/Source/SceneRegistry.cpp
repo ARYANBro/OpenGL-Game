@@ -45,3 +45,9 @@ bool SceneRegistry::IsEntityValid(EntityID entity) const noexcept
 
 	return found == m_FreedEntities.end() && entity != -1;
 }
+
+void SceneRegistry::EachEntity(const std::function<void (EntityID)>& function)
+{
+	for (EntityData& data : m_EntitiesData)
+		function(data.EntityID);
+}

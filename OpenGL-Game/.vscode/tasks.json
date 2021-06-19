@@ -2,52 +2,30 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Generate project files debug",
+            "label": "Generate project files",
             "type": "shell",
-            "options": {
+            "options":
+            {
                 "cwd": "${workspaceFolder}/../",
             },
-            "command": "Build\\cmake\\bin\\cmake.exe",
-            "args": [
-                "-S.",
-                "-BBinaries",
-                "-DCMAKE_BUILD_TYPE=Debug",
-                "-GMinGW Makefiles"
-            ],
+            "command": "Build\\premake\\bin\\premake5.exe",
+            "args": [ "gmake2" ],
             "group": "build",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "Generate project files release",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/../",
-            },
-            "command": "Build\\cmake\\bin\\cmake.exe",
-            "args": [
-                "-source", ".",
-                "-build", "Binaries",
-                "-DCMAKE_BUILD_TYPE=release",
-                "-GMinGW Makefiles"
-            ],
-            "group": "build",
-            "problemMatcher": [
-                "$gcc"
-            ]
+            "problemMatcher": [ "$gcc" ]
         },
         {
             "label": "Build debug",
             "type": "shell",
-            "dependsOn": [ "Generate project files debug" ],
-            "options": {
+            "options":
+            {
                 "cwd": "${workspaceFolder}/../"
             },
-            "command": "Build\\cmake\\bin\\cmake.exe",
-            "args": [
-                "--build",
-                "Binaries"
+            "command": "mingw32-make.exe",
+            "args":
+            [
+                "config=debug",
+                "CC=x86_64-w64-mingw32-gcc",
+                "CXX=x86_64-w64-mingw32-g++",
             ],
             "group": "build",
             "problemMatcher": [ "$gcc" ]
@@ -55,14 +33,31 @@
         {
             "label": "Build release",
             "type": "shell",
-            "dependsOn": [ "Generate project files release" ],
-            "options": { 
+            "options":
+            { 
                 "cwd": "${workspaceFolder}/../"
             },
-            "command": "Build\\cmake\\bin\\cmake.exe",
-            "args": [
-                "--build", 
-                "Binaries"
+            "command": "mingw32-make.exe",
+            "args":
+            [
+                "config=release",
+                "CC=x86_64-w64-mingw32-gcc",
+                "CXX=x86_64-w64-mingw32-g++"
+            ],
+            "group": "build",
+            "problemMatcher": [ "$gcc" ]
+        },
+        {
+            "label": "Clean workspace",
+            "type": "shell",
+            "options":
+            {
+                "cwd": "${workspaceFolder}/../"
+            },
+            "command": "Build\\premake\\bin\\premake5.exe",
+            "args": 
+            [
+                "clean"
             ],
             "group": "build",
             "problemMatcher": [ "$gcc" ]

@@ -65,9 +65,9 @@ public:
 	void RemoveComponent(EntityID entity);
 
 	template<typename ComponentType>
-	void EachComponent(const std::function<void (const ComponentType&)>& function);
+	void EachComponent(const std::function<void (EntityID, const ComponentType&)>& function);
 
-	void EachEntity(const std::function<void (EntityID entity)>& function);
+	void EachEntity(const std::function<void (EntityID)>& function);
 
 private:
 	std::vector<EntityData> m_EntitiesData;
@@ -124,22 +124,12 @@ void SceneRegistry::RemoveComponent(EntityID entity)
 }
 
 template<typename ComponentType>
-void SceneRegistry::EachComponent(const std::function<void (const ComponentType&)>& function)
+void SceneRegistry::EachComponent(const std::function<void (EntityID, const ComponentType&)>& function)
 {
 	auto id = GetID<ComponentType>::Get();
 	if (m_ComponentPools.size() < id)
 		throw std::runtime_error("Component does not exist");
 
 	for (int i = 0; i < m_ComponentPools[id]->GetLength(); i++)
-	{
-		function(*reinterpret_cast<ComponentType*>(m_ComponentPools[id]->Get(i)));
-	}
-}
-
-void SceneRegistry::EachEntity(const std::function<void (EntityID entity)>& function)
-{
-	for (auto data : m_EntitiesData)
-	{
-		function(data.EntityID);
-	}
+		function(static_cast<EntityID>(i), *reinterpret_cast<ComponentType*>(m_ComponentPools[id]->Get(i)));
 }

@@ -17,8 +17,8 @@ public:
 	static void Init(ShaderLibrary& shaderLibrary);
 	static void Deinit() noexcept;
 
-	static void DrawSprite(const glm::mat4& transform, const Texture& texture, glm::vec3 color = glm::vec3(0.0f));
-	static void RenderScene(Scene* scene);
+	static void DrawSprite(const glm::mat4& transform, const Texture& texture, glm::vec3 color = glm::vec3(1.0f));
+	static void RenderScene(Scene& scene, const glm::mat4& projection);
 
 private:
 	struct SpriteData

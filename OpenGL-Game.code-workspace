@@ -75,7 +75,8 @@
 			"fstream": "cpp",
 			"sstream": "cpp",
 			"codecvt": "cpp",
-			"iomanip": "cpp"
+			"iomanip": "cpp",
+			"internal.h": "c"
 		}
 	}
 }

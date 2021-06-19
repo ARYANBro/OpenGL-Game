@@ -54,16 +54,22 @@ void Renderer2D::DrawSprite(const glm::mat4& transform, const Texture& texture, 
 
 	texture.Bind(0);
 	s_SpriteData.Shader->SetInt("u_Texture", 0);
+	s_SpriteData.Shader->SetFloat3("u_Color", color);
+	s_SpriteData.Shader->SetMat4("u_ModelTransform", transform);
 
 	OpenGLRenderAPI::Render(*s_SpriteData.VertexArray, *s_SpriteData.Shader);
 
+	s_SpriteData.Shader->Unbind();
 	texture.Unbind();
 }
 
-void Renderer2D::RenderScene(Scene* scene)
+void Renderer2D::RenderScene(Scene& scene, const glm::mat4& projection)
 {
-	scene->m_Registry.EachComponent<SpriteRendererComponent>([](const SpriteRendererComponent& component)
+	s_SpriteData.Shader->SetMat4("u_ProjectionTransform", projection);
+
+	scene.m_Registry.EachComponent<SpriteRendererComponent>([&scene](EntityID entity, const SpriteRendererComponent& component)
 	{
-		DrawSprite(glm::mat4(1.0f), *component.Texture);
+		TransformComponent* transform = scene.m_Registry.GetComponent<TransformComponent>(entity);
+		DrawSprite(transform->GetTransform(), *component.Texture);
 	});
 }

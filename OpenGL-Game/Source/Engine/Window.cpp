@@ -16,9 +16,9 @@ Window::Window(std::uint_fast32_t width, std::uint_fast32_t height, const std::s
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
-	int iWidth = static_cast<int>(width);
-	int iHeight = static_cast<int>(height);
-	m_Window = glfwCreateWindow(iWidth, iHeight, name.c_str(), nullptr, nullptr);
+	m_Width = static_cast<int>(width);
+	m_Height = static_cast<int>(height);
+	m_Window = glfwCreateWindow(m_Width, m_Height, name.c_str(), nullptr, nullptr);
 
 	glfwMakeContextCurrent(m_Window);
 }

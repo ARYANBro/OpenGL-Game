@@ -13,8 +13,7 @@
             "compilerPath": "C:\\Users\\nalin\\Dev\\Applications\\MinGW\\mingw64\\bin\\gcc.exe",
             "cStandard": "gnu17",
             "cppStandard": "gnu++20",
-            "intelliSenseMode": "windows-gcc-x64",
-            "compileCommands": "..\\Binaries\\compile_commands.json"
+            "intelliSenseMode": "windows-gcc-x64"
         }
     ],
     "version": 4
