@@ -4,3 +4,5 @@
 [submodule "OpenGL-Game/Vendor/glfw"]
 	path = OpenGL-Game/Vendor/glfw
 	url = https://github.com/ARYANBro/glfw.git
+[submodule "Vendor/glfw"]
+	branch = glfw-premake-project

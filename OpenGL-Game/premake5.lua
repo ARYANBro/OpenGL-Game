@@ -33,7 +33,8 @@ project "OpenGL-Game"
 		"glfw",
 		"glad",
 		"opengl32",
-		"gdi32"
+		"gdi32",
+		"imm32"
 	}
 
 	filter "configurations:Debug"

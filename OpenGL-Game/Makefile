@@ -38,7 +38,7 @@ TARGET = $(TARGETDIR)/OpenGL-Game.exe
 OBJDIR = ../Binaries/Debug/OpenGL-Game/Objects
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++20
-LIBS += ../Binaries/Debug/Vendor/glfw/glfw.lib ../Binaries/Debug/Vendor/glad/glad.lib -lopengl32 -lgdi32
+LIBS += ../Binaries/Debug/Vendor/glfw/glfw.lib ../Binaries/Debug/Vendor/glad/glad.lib -lopengl32 -lgdi32 -limm32
 LDDEPS += ../Binaries/Debug/Vendor/glfw/glfw.lib ../Binaries/Debug/Vendor/glad/glad.lib
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
@@ -48,7 +48,7 @@ TARGET = $(TARGETDIR)/OpenGL-Game.exe
 OBJDIR = ../Binaries/Release/OpenGL-Game/Objects
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++20
-LIBS += ../Binaries/Release/Vendor/glfw/glfw.lib ../Binaries/Release/Vendor/glad/glad.lib -lopengl32 -lgdi32
+LIBS += ../Binaries/Release/Vendor/glfw/glfw.lib ../Binaries/Release/Vendor/glad/glad.lib -lopengl32 -lgdi32 -limm32
 LDDEPS += ../Binaries/Release/Vendor/glfw/glfw.lib ../Binaries/Release/Vendor/glad/glad.lib
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
 

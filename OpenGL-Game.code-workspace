@@ -76,7 +76,10 @@
 			"sstream": "cpp",
 			"codecvt": "cpp",
 			"iomanip": "cpp",
-			"internal.h": "c"
+			"internal.h": "c",
+			"glfw3.h": "c",
+			"string.h": "c",
+			"assert.h": "c"
 		}
 	}
 }
