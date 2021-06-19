@@ -4,3 +4,5 @@
 [submodule "OpenGL-Game/Vendor\\glm"]
 	path = OpenGL-Game/Vendor\\glm
 	url = https://github.com/g-truc/glm.git
+[submodule "Vendor/glfw"]
+	url = https://github.com/ARYANBro/glfw.git
