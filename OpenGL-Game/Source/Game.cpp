@@ -1,6 +1,7 @@
 #include "Game.h"
 
 #include "Engine/Renderer2D.h"
+#include "SceneSerializer.h"
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -47,7 +48,9 @@ void Game::OnBegin()
 
 	Renderer2D::Init(m_ShaderLibrary);
 	m_Scene.OnBegin();
-	// m_Scene = m_SceneLoader.Load("**file path**");
+	// m_Scene = SceneSerializer::Deserialize("**file path**");
+	// SceneSerializer::Serialize(m_Scene, "Assets\\Scenes\\Scene.yaml");
+	SceneSerializer::Deserialize(m_Scene, "Assets\\Scenes\\Scene.yaml");
 }
 
 void Game::OnUpdate(const DeltaTime& deltaT)

@@ -34,10 +34,10 @@ void Scene::DestroyEntity(const Entity& entity) noexcept
 
 void Scene::OnBegin()
 {
-	Entity entity = CreateEntity();
-	SpriteRendererComponent* component = entity.AddComponent<SpriteRendererComponent>();
+	// Entity entity = CreateEntity();
+	// SpriteRendererComponent* component = entity.AddComponent<SpriteRendererComponent>();
 
-	component->Texture = m_Game->GetTextureLibrary().Load("Assets\\Textures\\Planks\\Planks012_4K_Color.png");
+	// component->Texture = m_Game->GetTextureLibrary().Load("Assets\\Textures\\Planks\\Planks012_4K_Color.png");
 }
 
 void Scene::OnUpdate(const DeltaTime& deltaT)
@@ -46,8 +46,8 @@ void Scene::OnUpdate(const DeltaTime& deltaT)
 
 void Scene::OnEnd()
 {
-	m_Registry.EachEntity([this](EntityID entity)
-	{
-		m_Registry.DestroyEntity(entity);
-	});
+	// m_Registry.EachEntity([this](EntityID entity)
+	// {
+		// m_Registry.DestroyEntity(entity);
+	// });
 }

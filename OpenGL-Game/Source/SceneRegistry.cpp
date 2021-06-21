@@ -2,11 +2,16 @@
 
 #include "Scene.h"
 
+#include <iostream>
+
 SceneRegistry::~SceneRegistry() noexcept
 {
-	for (ComponentPool* componentPool : m_ComponentPools)
-		delete componentPool;
-}
+	for (auto& edata : m_EntitiesData)
+		DestroyEntity(edata.EntityID);
+
+	for (int i = 0; i < m_ComponentPools.size(); i++)
+		delete m_ComponentPools[i];
+	}
 
 EntityID SceneRegistry::CreateEntity() noexcept
 {
@@ -27,10 +32,10 @@ EntityID SceneRegistry::CreateEntity() noexcept
 
 void SceneRegistry::DestroyEntity(EntityID entity) noexcept
 {
-	for (int i = 0; i < MAX_COMPONENTS; i++)
+	for (auto& pool : m_ComponentPools)
 	{
-		if (m_EntitiesData[entity].Components.test(i))
-			m_ComponentPools[i]->Remove(entity);
+		if (pool->Contains(entity))
+			pool->Remove(entity);
 	}
 
 	m_FreedEntities.push_back(entity);

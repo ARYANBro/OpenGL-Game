@@ -22,9 +22,12 @@ public:
 	void OnUpdate(const DeltaTime& deltaT);
 	void OnEnd();
 
+	Game* GetGame() const noexcept { return m_Game; }
+
 private:
 	friend class Entity;
 	friend class Renderer2D;
+	friend class SceneSerializer;
 
 private:
 	SceneRegistry m_Registry;

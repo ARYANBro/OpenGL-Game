@@ -1,0 +1,8 @@
+- EntityID: 0
+  SpriteRendererComponent:
+    Texturepath: Assets\Textures\Planks\Planks012_4K_Color.png
+    Color: [0, 0, 0]
+  TransformComponent:
+    Translation: [0, 0, -1]
+    Scale: [500, 500, 500]
+    Rotation: [0, 0, 0]

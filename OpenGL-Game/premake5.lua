@@ -25,7 +25,8 @@ project "OpenGL-Game"
 		includeDirs["glad"],
 		includeDirs["glfw"],
 		includeDirs["glm"],
-		includeDirs["stb_image"]
+		includeDirs["stb_image"],
+		includeDirs["yaml-cpp"]
 	}
 
 	links
@@ -34,7 +35,8 @@ project "OpenGL-Game"
 		"glad",
 		"opengl32",
 		"gdi32",
-		"imm32"
+		"imm32",
+		"yaml-cpp"
 	}
 
 	filter "configurations:Debug"

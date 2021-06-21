@@ -20,7 +20,7 @@ endif
 
 RESCOMP = windres
 DEFINES +=
-INCLUDES += -ISource -IVendor/glad/include -IVendor/glfw/include -IVendor/glm -IVendor/stb_image/include
+INCLUDES += -ISource -IVendor/glad/include -IVendor/glfw/include -IVendor/glm -IVendor/stb_image/include -IVendor/yaml-cpp/include
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -38,8 +38,8 @@ TARGET = $(TARGETDIR)/OpenGL-Game.exe
 OBJDIR = ../Binaries/Debug/OpenGL-Game/Objects
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++20
-LIBS += ../Binaries/Debug/Vendor/glfw/glfw.lib ../Binaries/Debug/Vendor/glad/glad.lib -lopengl32 -lgdi32 -limm32
-LDDEPS += ../Binaries/Debug/Vendor/glfw/glfw.lib ../Binaries/Debug/Vendor/glad/glad.lib
+LIBS += ../Binaries/Debug/Vendor/glfw/glfw.lib ../Binaries/Debug/Vendor/glad/glad.lib ../Binaries/Debug/Vendor/yaml-cpp/yaml-cpp.lib -lopengl32 -lgdi32 -limm32
+LDDEPS += ../Binaries/Debug/Vendor/glfw/glfw.lib ../Binaries/Debug/Vendor/glad/glad.lib ../Binaries/Debug/Vendor/yaml-cpp/yaml-cpp.lib
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
 else ifeq ($(config),release)
@@ -48,8 +48,8 @@ TARGET = $(TARGETDIR)/OpenGL-Game.exe
 OBJDIR = ../Binaries/Release/OpenGL-Game/Objects
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++20
-LIBS += ../Binaries/Release/Vendor/glfw/glfw.lib ../Binaries/Release/Vendor/glad/glad.lib -lopengl32 -lgdi32 -limm32
-LDDEPS += ../Binaries/Release/Vendor/glfw/glfw.lib ../Binaries/Release/Vendor/glad/glad.lib
+LIBS += ../Binaries/Release/Vendor/glfw/glfw.lib ../Binaries/Release/Vendor/glad/glad.lib ../Binaries/Release/Vendor/yaml-cpp/yaml-cpp.lib -lopengl32 -lgdi32 -limm32
+LDDEPS += ../Binaries/Release/Vendor/glfw/glfw.lib ../Binaries/Release/Vendor/glad/glad.lib ../Binaries/Release/Vendor/yaml-cpp/yaml-cpp.lib
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
 
 endif
@@ -73,6 +73,7 @@ GENERATED += $(OBJDIR)/OpenGLRenderAPI.o
 GENERATED += $(OBJDIR)/Renderer2D.o
 GENERATED += $(OBJDIR)/Scene.o
 GENERATED += $(OBJDIR)/SceneRegistry.o
+GENERATED += $(OBJDIR)/SceneSerializer.o
 GENERATED += $(OBJDIR)/Shader.o
 GENERATED += $(OBJDIR)/Texture.o
 GENERATED += $(OBJDIR)/VertexArray.o
@@ -88,6 +89,7 @@ OBJECTS += $(OBJDIR)/OpenGLRenderAPI.o
 OBJECTS += $(OBJDIR)/Renderer2D.o
 OBJECTS += $(OBJDIR)/Scene.o
 OBJECTS += $(OBJDIR)/SceneRegistry.o
+OBJECTS += $(OBJDIR)/SceneSerializer.o
 OBJECTS += $(OBJDIR)/Shader.o
 OBJECTS += $(OBJDIR)/Texture.o
 OBJECTS += $(OBJDIR)/VertexArray.o
@@ -197,6 +199,9 @@ $(OBJDIR)/Scene.o: Source/Scene.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/SceneRegistry.o: Source/SceneRegistry.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/SceneSerializer.o: Source/SceneSerializer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/stb_image.o: Vendor/stb_image/source/stb_image.cpp

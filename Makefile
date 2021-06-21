@@ -12,23 +12,25 @@ ifeq ($(config),debug)
   OpenGL_Game_config = debug
   glad_config = debug
   glfw_config = debug
+  yaml_cpp_config = debug
 
 else ifeq ($(config),release)
   OpenGL_Game_config = release
   glad_config = release
   glfw_config = release
+  yaml_cpp_config = release
 
 else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := OpenGL-Game glad glfw
+PROJECTS := OpenGL-Game glad glfw yaml-cpp
 
 .PHONY: all clean help $(PROJECTS) 
 
 all: $(PROJECTS)
 
-OpenGL-Game: glfw glad
+OpenGL-Game: glfw glad yaml-cpp
 ifneq (,$(OpenGL_Game_config))
 	@echo "==== Building OpenGL-Game ($(OpenGL_Game_config)) ===="
 	@${MAKE} --no-print-directory -C OpenGL-Game -f Makefile config=$(OpenGL_Game_config)
@@ -46,10 +48,17 @@ ifneq (,$(glfw_config))
 	@${MAKE} --no-print-directory -C OpenGL-Game/Vendor/glfw -f Makefile config=$(glfw_config)
 endif
 
+yaml-cpp:
+ifneq (,$(yaml_cpp_config))
+	@echo "==== Building yaml-cpp ($(yaml_cpp_config)) ===="
+	@${MAKE} --no-print-directory -C OpenGL-Game/Vendor/yaml-cpp -f Makefile config=$(yaml_cpp_config)
+endif
+
 clean:
 	@${MAKE} --no-print-directory -C OpenGL-Game -f Makefile clean
 	@${MAKE} --no-print-directory -C OpenGL-Game/Vendor/glad -f Makefile clean
 	@${MAKE} --no-print-directory -C OpenGL-Game/Vendor/glfw -f Makefile clean
+	@${MAKE} --no-print-directory -C OpenGL-Game/Vendor/yaml-cpp -f Makefile clean
 
 help:
 	@echo "Usage: make [config=name] [target]"
@@ -64,5 +73,6 @@ help:
 	@echo "   OpenGL-Game"
 	@echo "   glad"
 	@echo "   glfw"
+	@echo "   yaml-cpp"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <functional>
 
 class Entity;
 
@@ -17,11 +18,13 @@ public:
 
 	void* Get(std::size_t index) noexcept;
 
+	bool Contains(std::size_t id) noexcept;
+
 	std::size_t GetComponentSize() const noexcept { return m_ComponentSize; }
 	std::size_t GetLength() const noexcept { return m_Length; }
 
 private:
-	char* m_Components;
+	void* m_Components;
 	std::size_t m_ComponentSize;
 	std::size_t m_Length = 0;
 };

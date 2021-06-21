@@ -6,3 +6,6 @@
 	url = https://github.com/ARYANBro/glfw.git
 [submodule "Vendor/glfw"]
 	branch = glfw-premake-project
+[submodule "OpenGL-Game/Vendor/yaml-cpp"]
+	path = OpenGL-Game/Vendor/yaml-cpp
+	url = https://github.com/ARYANBro/yaml-cpp.git

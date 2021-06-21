@@ -120,13 +120,18 @@ void SceneRegistry::RemoveComponent(EntityID entity)
 
 	auto id = GetID<ComponentType>::Get();
 	m_EntitiesData[entity].Components.reset(id);
-	m_ComponentPools[id]->Remove(entity);
+
+	m_ComponentPools[id]->Remove(entity, [](void* component)
+	{
+		reinterpret_cast<ComponentType*>(component)->~ComponentType();
+	});
 }
 
 template<typename ComponentType>
 void SceneRegistry::EachComponent(const std::function<void (EntityID, const ComponentType&)>& function)
 {
 	auto id = GetID<ComponentType>::Get();
+
 	if (m_ComponentPools.size() < id)
 		throw std::runtime_error("Component does not exist");
 
