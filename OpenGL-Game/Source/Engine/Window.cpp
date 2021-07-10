@@ -43,3 +43,13 @@ void Window::SwapBuffers() const noexcept
 {
 	glfwSwapBuffers(m_Window);
 }
+
+void Window::OnEvent(const Event& event) noexcept
+{
+	if (event.GetType() == EventType::WindowResizeEvent)
+	{
+		const WindowResizeEvent& windowResizeE = static_cast<const WindowResizeEvent&>(event);
+		m_Width = windowResizeE.GetWidth();
+		m_Height = windowResizeE.GetHeight();
+	}
+}

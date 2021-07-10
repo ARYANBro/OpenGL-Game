@@ -2,6 +2,7 @@
 
 #include "Window.h"
 #include "Shader.h"
+#include "Engine/Event.h"
 #include "VertexArray.h"
 
 #include <glad/glad.h>
@@ -10,9 +11,14 @@
 #include <stdexcept>
 #include <iostream>
 
-OpenGLRenderAPI::OpenGLRenderAPI(const Window& window)
-	: m_Window(window)
+OpenGLRenderAPI::OpenGLRenderAPI(Window& window)
 {
+	Init(window);
+}
+
+void OpenGLRenderAPI::Init(Window& window)
+{
+	m_Window = &window;
 	int gladInitResult = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
 
 	if (gladInitResult == 0)
@@ -43,16 +49,26 @@ OpenGLRenderAPI::OpenGLRenderAPI(const Window& window)
 		}
 
 	}, nullptr);
+}
 
-	glfwSetFramebufferSizeCallback(window.GetGLFWwindow(), [](GLFWwindow* window, int width, int height)
+void OpenGLRenderAPI::OnEvent(const Event& event) const noexcept
+{
+	if (event.GetType() == EventType::WindowResizeEvent)
 	{
-		glViewport(0, 0, width, height);
-	});
+		WindowResizeEvent windowResizeE = static_cast<const WindowResizeEvent&>(event);
+		glViewport(0, 0, windowResizeE.GetWidth(), windowResizeE.GetHeight());
+	}
 }
 
 void OpenGLRenderAPI::SetClearColor(float r, float g, float b, float a) noexcept
 {
 	glClearColor(r, g, b, a);
+}
+
+void OpenGLRenderAPI::EnableBlending(GLenum blendEquation) noexcept
+{
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void OpenGLRenderAPI::Clear() noexcept

@@ -16,24 +16,16 @@ public:
 	void Bind(unsigned int slot = 0) const noexcept;
 	void Unbind() const noexcept;
 
+	std::uint_fast32_t GetWidth() const noexcept { return m_Width; }
+	std::uint_fast32_t GetHeight() const noexcept { return m_Height; }
+
 	const std::string& GetTexturePath() const noexcept { return m_FilePath; }
 
 private:
+	std::uint_fast32_t m_Width, m_Height;
 	std::uint_fast32_t m_RendererID;
 	mutable unsigned int m_Slot;
 	std::string m_FilePath;
 };
 
-class TextureLibrary : public ResourceLibrary<Texture, std::string>
-{
-private:
-	virtual std::shared_ptr<Texture> LoadResource(const std::string& filePath) override
-	{
-		return std::make_shared<Texture>(filePath);
-	}
-
-	virtual bool Compare(const Texture& texture, const std::string& filePath) override
-	{
-		return texture.GetTexturePath() == filePath;
-	}
-};
+using TextureLibrary = ResourceLibrary<Texture, std::string>;

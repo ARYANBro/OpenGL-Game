@@ -3,13 +3,21 @@
 class Window;
 class Shader;
 class VertexArray;
+class Event;
+
+typedef unsigned int GLenum;
 
 class OpenGLRenderAPI
 {
 public:
-	OpenGLRenderAPI(const Window& window);
+	OpenGLRenderAPI() noexcept = default;
+	OpenGLRenderAPI(Window& window);
+
+	void Init(Window& window);
+	void OnEvent(const Event& event) const noexcept;
 
 	static void SetClearColor(float r, float g, float b, float a) noexcept;
+	static void EnableBlending(GLenum blendEquation) noexcept;
 	static void Clear() noexcept;
 	static void Render(const VertexArray& vertexArray, const Shader& shader) noexcept;
 
@@ -18,7 +26,7 @@ public:
 	const char* GetVersionName() const noexcept { return m_Version; }
 
 private:
-	const Window& m_Window;
+	const Window* m_Window;
 
 	const char* m_Vendor;
 	const char* m_Renderer;

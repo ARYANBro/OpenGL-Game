@@ -4,6 +4,7 @@
 #include <string>
 
 class GLFWwindow;
+class Event;
 
 class Window
 {
@@ -14,11 +15,15 @@ public:
 	bool IsRunning() const noexcept;
 	void PollEvents() const noexcept;
 	void SwapBuffers() const noexcept;
+	void OnEvent(const Event& event) noexcept;
 
 	std::uint_fast32_t GetWidth() const noexcept { return m_Width; }
 	std::uint_fast32_t GetHeight() const noexcept { return m_Height; }
 
 	GLFWwindow* GetGLFWwindow() const noexcept { return m_Window; }
+
+private:
+	friend class OpenGLRenderAPI;
 
 private:
 	GLFWwindow* m_Window;

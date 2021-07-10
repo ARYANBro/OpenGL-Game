@@ -1,41 +1,50 @@
 #pragma once
 
-#define BIND_FUNCTION(function) [this](auto&&... args)	\
-{																\
-	function(args...);											\
-}																\
-
-#define EVENT_CLASS(class)\
-virtual EventType GetType() const noexcept override { return EventType::class; }\
-static EventType GetStaticType() noexcept { return EventType:::class; }
-				
 enum class EventType
 {
-	Event, WindowResizeEvent
+	Event, WindowResizeEvent, KeyEvent
 };
 
 class Event
 {
 public:
 	virtual EventType GetType() const noexcept = 0;
-	static EventType GetStaticType() noexcept { return EventType::Event; }
 };
 
-class EventDispatcher
+class WindowResizeEvent : public Event
 {
 public:
-	EventDispatcher(const Event& event) noexcept
-		: m_Event(event)
-	{
-	}
+	WindowResizeEvent(std::uint_fast32_t width, std::uint_fast32_t height) noexcept
+		: m_Width(width), m_Height(height) {}
 
-	template<typename EventType, typename Function>
-	void Dispatch(Function function) const noexcept
-	{
-		if (m_Event.GetType() == EventType::GetStaticType())
-			function(reinterpret_cast<const EventType&>(m_Event));
-	}
+	virtual EventType GetType() const noexcept override { return EventType::WindowResizeEvent; }
+
+	std::uint_fast32_t GetWidth() const noexcept { return m_Width; }
+	std::uint_fast32_t GetHeight() const noexcept { return m_Height; }
 
 private:
-	const Event& m_Event;
+	std::uint_fast32_t m_Width, m_Height;
+};
+
+enum class KeyAction
+{
+	Pressed, Released, Held
+};
+
+class KeyEvent : public Event
+{
+public:
+	KeyEvent(int key, int scanCode, KeyAction action) noexcept	
+		: m_Key(key), m_ScanCode(scanCode), m_Action(action) {}
+
+	virtual EventType GetType() const noexcept override { return EventType::KeyEvent; }
+
+	int GetKey() const noexcept { return m_Key; }
+	int GetScanCode() const noexcept { return m_ScanCode; }
+	KeyAction GetAction() const noexcept { return m_Action; }
+
+private:
+	int m_Key;
+	int m_ScanCode;
+	KeyAction m_Action;
 };

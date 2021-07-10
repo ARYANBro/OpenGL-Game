@@ -10,6 +10,7 @@ class Application
 {
 public:
 	Application(std::uint_fast32_t width, std::uint_fast32_t height, const std::string& title);
+	~Application() noexcept;
 
 	void Start();
 
@@ -22,10 +23,14 @@ public:
 	const Window& GetWindow() const noexcept { return m_Window; }
 	const OpenGLRenderAPI& GetOpenGLRenderAPI() const noexcept { return m_RenderAPI; }
 
+
 	Window& GetWindow() noexcept { return m_Window; }
 	OpenGLRenderAPI& GetOpenGLRenderAPI() noexcept { return m_RenderAPI; }
 
+	static Application& GetInstance() noexcept { return *s_Instance; }
+
 private:
 	Window m_Window;
+	static Application* s_Instance;
 	OpenGLRenderAPI m_RenderAPI;
 };

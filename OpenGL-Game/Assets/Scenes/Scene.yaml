@@ -1,8 +1,178 @@
-- EntityID: 0
+- &OrangeBlocks
+  EntityID: 0
+  TagComponent:
+    Tag: Block
   SpriteRendererComponent:
-    Texturepath: Assets\Textures\Planks\Planks012_4K_Color.png
+    Texturepath: Assets\Textures\Block\Block.png
+    Color: [1.0, 0.5, 0]
+  TransformComponent:
+    Translation: [0, 0, 0]
+    Scale: [0, 0, 0]
+    Rotation: [0, 0, 0]
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- *OrangeBlocks
+- &PaleYellowBlocks
+  EntityID: 0
+  TagComponent:
+    Tag: Block
+  SpriteRendererComponent:
+    Texturepath: Assets\Textures\Block\Block.png
+    Color: [0.8, 0.8, 0.4]
+  TransformComponent:
+    Translation: [0, 0, 0]
+    Scale: [0, 0, 0]
+    Rotation: [0, 0, 0]
+- *PaleYellowBlocks
+- *PaleYellowBlocks
+- *PaleYellowBlocks
+- *PaleYellowBlocks
+- &AirBlock
+  EntityID: 0
+  TagComponent:
+    Tag: AirBlock
+  TransformComponet:
+    Translation: [0, 0, 0]
+    Scale: [0, 0, 0]
+    Rotation: [0, 0, 0]
+- *AirBlock
+- *AirBlock
+- *AirBlock
+- *AirBlock
+- *PaleYellowBlocks
+- *PaleYellowBlocks
+- *PaleYellowBlocks
+- *PaleYellowBlocks
+- *PaleYellowBlocks
+- *PaleYellowBlocks
+- &SolidBlock
+  EntityID: 0
+  TagComponent:
+    Tag: Block
+  SpriteRendererComponent:
+    Texturepath: Assets\Textures\Block\Solid Block.png
     Color: [0, 0, 0]
   TransformComponent:
-    Translation: [0, 0, -1]
-    Scale: [500, 500, 500]
+    Translation: [0, 0, 0]
+    Scale: [0, 0, 0]
     Rotation: [0, 0, 0]
+  
+- *PaleYellowBlocks
+- *SolidBlock
+- *PaleYellowBlocks
+- *AirBlock
+- *AirBlock
+- *SolidBlock
+- *AirBlock
+- *AirBlock
+- *PaleYellowBlocks
+- *SolidBlock
+- *PaleYellowBlocks
+- *SolidBlock
+- *PaleYellowBlocks
+- &GreenBlock
+  EntityID: 0
+  TagComponent:
+    Tag: Block
+  SpriteRendererComponent:
+    Texturepath: Assets\Textures\Block\Block.png
+    Color: [0.0, 0.7, 0.0]
+  TransformComponent:
+    Translation: [0, 0, 0]
+    Scale: [0, 0, 0]
+    Rotation: [0, 0, 0]
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *AirBlock
+- *AirBlock
+- *AirBlock
+- *AirBlock
+- *AirBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- *GreenBlock
+- &BlueBlock
+  EntityID: 0
+  TagComponent:
+    Tag: Block
+  SpriteRendererComponent:
+    Texturepath: Assets\Textures\Block\Block.png
+    Color: [0.2, 0.6, 1.0]
+  TransformComponent:
+    Translation: [0, 0, 0]
+    Scale: [0, 0, 0]
+    Rotation: [0, 0, 0]
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock
+- *BlueBlock

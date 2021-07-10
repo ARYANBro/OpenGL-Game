@@ -61,6 +61,21 @@
             ],
             "group": "build",
             "problemMatcher": [ "$gcc" ]
+        },
+        {
+            "label": "Clean project files",
+            "type": "shell",
+            "options":
+            {
+                "cwd": "${workspaceFolder}/../"
+            },
+            "command": "Build\\premake\\bin\\premake5.exe",
+            "args":
+            [
+                "clean-Makefiles"
+            ],
+            "group": "build",
+            "problemMatcher": [ "$gcc" ]
         }
     ]
 }

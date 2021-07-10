@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "ResourceLibrary.h"
 
 #include <glad/glad.h>
@@ -39,16 +40,4 @@ private:
 	const std::string& m_FilePath;
 };
 
-class ShaderLibrary : public ResourceLibrary<Shader, std::string>
-{
-private:
-	virtual std::shared_ptr<Shader> LoadResource(const std::string& filePath) override
-	{
-		return std::make_shared<Shader>(filePath);
-	}
-
-	virtual bool Compare(const Shader& shader, const std::string& filePath) override
-	{
-		return shader.GetFilePath() == filePath;
-	}
-};
+using ShaderLibrary = ResourceLibrary<Shader, std::string>;

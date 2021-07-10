@@ -2,24 +2,24 @@
 
 #include "Texture.h"
 #include "Shader.h"
-#include "Scene.h"
+#include "Scene/Scene.h"
 #include "OpenGLRenderAPI.h"
 #include "VertexBuffer.h"
 
 Renderer2D::SpriteData Renderer2D::s_SpriteData;
 
-void Renderer2D::Init(ShaderLibrary& shaderLibrary)
+void Renderer2D::Init()
 {
 	s_SpriteData.VertexArray = new VertexArray();
-	s_SpriteData.Shader = shaderLibrary.Load("Assets\\Shaders\\Shader.glsl");
+	s_SpriteData.Shader = ShaderLibrary::Get().Load("Assets\\Shaders\\Shader.glsl");
 
 	auto vb = std::make_shared<VertexBuffer>();
 
 	float vertices[] = {
-		-0.5f,  0.5f,  0.0f, 1.0f,
-		 0.5f,  0.5f,  1.0f, 1.0f,
-		-0.5f, -0.5f,  0.0f, 0.0f,
-		 0.5f, -0.5f,  1.0f, 0.0f
+		0.0f, 1.0f,  0.0f, 1.0f,
+		1.0f, 1.0f,  1.0f, 1.0f,
+		0.0f, 0.0f,  0.0f, 0.0f,
+		1.0f, 0.0f,  1.0f, 0.0f
 	};
 
 	vb->SetData(vertices, sizeof(vertices));
@@ -48,7 +48,7 @@ void Renderer2D::Deinit() noexcept
 	delete s_SpriteData.VertexArray;
 }
 
-void Renderer2D::DrawSprite(const glm::mat4& transform, const Texture& texture, glm::vec3 color)
+void Renderer2D::DrawSprite(const glm::mat4& projection, const glm::mat4& transform, const Texture& texture, glm::vec3 color)
 {
 	s_SpriteData.Shader->Bind();
 
@@ -56,6 +56,7 @@ void Renderer2D::DrawSprite(const glm::mat4& transform, const Texture& texture, 
 	s_SpriteData.Shader->SetInt("u_Texture", 0);
 	s_SpriteData.Shader->SetFloat3("u_Color", color);
 	s_SpriteData.Shader->SetMat4("u_ModelTransform", transform);
+	s_SpriteData.Shader->SetMat4("u_ProjectionTransform", projection);
 
 	OpenGLRenderAPI::Render(*s_SpriteData.VertexArray, *s_SpriteData.Shader);
 
@@ -65,11 +66,9 @@ void Renderer2D::DrawSprite(const glm::mat4& transform, const Texture& texture, 
 
 void Renderer2D::RenderScene(Scene& scene, const glm::mat4& projection)
 {
-	s_SpriteData.Shader->SetMat4("u_ProjectionTransform", projection);
-
-	scene.m_Registry.EachComponent<SpriteRendererComponent>([&scene](EntityID entity, const SpriteRendererComponent& component)
+	scene.m_Registry.EachComponent<SpriteRendererComponent>([&](EntityID entity, const SpriteRendererComponent& component)
 	{
 		TransformComponent* transform = scene.m_Registry.GetComponent<TransformComponent>(entity);
-		DrawSprite(transform->GetTransform(), *component.Texture);
+		DrawSprite(projection, transform->GetTransform(), *component.Texture, component.Color != glm::vec3(0.0f) ? component.Color : glm::vec3(1.0f));
 	});
 }

@@ -243,3 +243,15 @@ GLint Shader::GetUniformLocation(const std::string& name) const
 
 	return location;
 }
+
+template<>
+bool ResourceLibrary<Shader, std::string>::Compare(const Shader& shader, const std::string& param)
+{
+	return shader.GetFilePath() == param;
+}
+
+template<>
+std::shared_ptr<Shader> ResourceLibrary<Shader, std::string>::CreateResource(const std::string& param)
+{
+	return std::make_shared<Shader>(param);
+}

@@ -1,11 +1,6 @@
-[submodule "OpenGL-Game/Vendor/glm"]
+[submodule "Vendor/glm"]
 	path = OpenGL-Game/Vendor/glm
 	url = https://github.com/g-truc/glm.git
-[submodule "OpenGL-Game/Vendor/glfw"]
+[submodule "Vendor/glfw"]
 	path = OpenGL-Game/Vendor/glfw
 	url = https://github.com/ARYANBro/glfw.git
-[submodule "Vendor/glfw"]
-	branch = glfw-premake-project
-[submodule "OpenGL-Game/Vendor/yaml-cpp"]
-	path = OpenGL-Game/Vendor/yaml-cpp
-	url = https://github.com/ARYANBro/yaml-cpp.git
