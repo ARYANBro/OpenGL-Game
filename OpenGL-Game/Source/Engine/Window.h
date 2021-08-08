@@ -16,6 +16,7 @@ public:
 	void PollEvents() const noexcept;
 	void SwapBuffers() const noexcept;
 	void OnEvent(const Event& event) noexcept;
+	float GetWindowScale() const noexcept;
 
 	std::uint_fast32_t GetWidth() const noexcept { return m_Width; }
 	std::uint_fast32_t GetHeight() const noexcept { return m_Height; }
@@ -28,4 +29,7 @@ private:
 private:
 	GLFWwindow* m_Window;
 	std::int_fast32_t m_Width, m_Height;
+
+	std::int_fast32_t m_InitialWidth;
+	float m_WindowScale = 1.0f;
 };

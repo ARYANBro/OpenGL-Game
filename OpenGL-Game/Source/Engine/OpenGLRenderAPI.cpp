@@ -19,6 +19,7 @@ OpenGLRenderAPI::OpenGLRenderAPI(Window& window)
 void OpenGLRenderAPI::Init(Window& window)
 {
 	m_Window = &window;
+	glfwMakeContextCurrent(m_Window->GetGLFWwindow());
 	int gladInitResult = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
 
 	if (gladInitResult == 0)
@@ -49,6 +50,11 @@ void OpenGLRenderAPI::Init(Window& window)
 		}
 
 	}, nullptr);
+}
+
+void OpenGLRenderAPI::Deinit() noexcept
+{
+	glfwMakeContextCurrent(nullptr);
 }
 
 void OpenGLRenderAPI::OnEvent(const Event& event) const noexcept

@@ -1,8 +1,12 @@
 #pragma once
 
+#include <Scene/Entity.h>
+
+class CollisionInfo;
+
 enum class EventType
 {
-	Event, WindowResizeEvent, KeyEvent
+	Event, WindowResizeEvent, KeyEvent, PhysicsEvent
 };
 
 class Event
@@ -47,4 +51,23 @@ private:
 	int m_Key;
 	int m_ScanCode;
 	KeyAction m_Action;
+};
+
+class PhysicsEvent : public Event
+{
+public:
+	PhysicsEvent(Entity firstEntity, Entity secondEntity, CollisionInfo* ci) noexcept
+		: m_FirstEntity(firstEntity), m_SecondEntity(secondEntity), m_Ci(ci) {}
+
+	virtual EventType GetType() const noexcept override { return EventType::PhysicsEvent; }
+
+	Entity GetFirstEntity() const noexcept { return m_FirstEntity; }
+	Entity GetSecondEntity() const noexcept { return m_SecondEntity; }
+	CollisionInfo* GetCollisionInfo() const noexcept { return m_Ci; }
+
+private:
+	Entity m_FirstEntity;
+	Entity m_SecondEntity;
+
+	CollisionInfo* m_Ci;
 };

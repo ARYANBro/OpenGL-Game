@@ -20,6 +20,8 @@ public:
 	void OnUpdate(Scene& scene, const DeltaTime& dt);
 	void OnEnd(Scene& scene);
 
+	void Load(Scene& scene) noexcept;
+
 	void SetColorScheme(const std::unordered_map<int, glm::vec3>& colorScheme) noexcept { m_ColorScheme = colorScheme; }
 	void SetBlockTexture(Texture* texture) noexcept { m_BlockTexture = texture; }
 	void SetSolidBlockTexture(Texture* texture) noexcept { m_SolidBlockTexture = texture; }

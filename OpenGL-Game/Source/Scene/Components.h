@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Engine/Physics/PhysicsColider.h>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -45,4 +47,21 @@ struct TagComponent
 struct ScriptComponent
 {
 	std::unique_ptr<Script> Script;
+};
+
+enum class PhysicsType
+{
+	Static, Kinetic
+};
+
+struct PhysicsComponent
+{
+	template<typename ColiderType>
+	ColiderType& GetColider() requires std::is_base_of_v<::Colider, ColiderType>
+	{
+		return dynamic_cast<ColiderType&>(*Colider);
+	}
+
+	PhysicsType PhysicsType;
+	std::unique_ptr<Colider> Colider;
 };

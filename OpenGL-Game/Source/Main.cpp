@@ -7,17 +7,6 @@ extern std::unique_ptr<Application> CreateApplication(std::uint_fast32_t width, 
 
 int main()
 {
-	try
-	{
-		auto app = CreateApplication(1280, 700, "OpenGL-Game");
-		app->Start();
-	}
-	catch (const std::exception& e)
-	{
-		std::cerr << "Exception occured in main():\n" << e.what() << std::endl;
-	}
-	catch (...)
-	{
-		std::cerr << "Exception occured in main()\n";
-	}
+	auto app = CreateApplication(1280, 700, "OpenGL-Game");
+	app->Start();
 }

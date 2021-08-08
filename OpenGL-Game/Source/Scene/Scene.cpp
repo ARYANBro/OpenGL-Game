@@ -36,6 +36,11 @@ void Scene::DestroyEntity(const Entity& entity) noexcept
 	m_Registry.DestroyEntity(entity.GetID());
 }
 
+Entity Scene::GetEntity(EntityID entityID) noexcept
+{
+	return Entity(entityID, this);
+}
+
 void Scene::OnBegin()
 {
 	m_Registry.EachComponent<ScriptComponent>([this](EntityID entity, ScriptComponent& script)
@@ -65,5 +70,10 @@ void Scene::OnEnd()
 	m_Registry.EachComponent<ScriptComponent>([this](EntityID entity, ScriptComponent& script)
 	{
 		script.Script->OnEnd(Entity(entity, this));
+	});
+
+	m_Registry.EachEntity([this](EntityID entityID)
+	{
+		DestroyEntity(GetEntity(entityID));
 	});
 }

@@ -63,8 +63,10 @@ void Application::Start()
 	OnBegin();
 
 	DeltaTime deltaT;
+	deltaT.Calculate();
 
-	while (m_Window.IsRunning())
+	m_IsRunning = true;
+	while (m_IsRunning && m_Window.IsRunning())
 	{
 		m_RenderAPI.SetClearColor(0.01f, 0.01f, 0.01f, 1.0f);
 		m_RenderAPI.Clear();

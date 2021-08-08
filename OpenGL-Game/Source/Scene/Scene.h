@@ -16,13 +16,14 @@ public:
 
 	Entity CreateEntity() noexcept;
 	void DestroyEntity(const Entity& entity) noexcept;
+	Entity GetEntity(EntityID entityID) noexcept;
 
 	void OnBegin();
 	void OnUpdate(const DeltaTime& deltaT);
 	void OnEvent(const Event& event);
 	void OnEnd();
-
 	SceneRegistry& GetRegistry() noexcept { return m_Registry; }
+
 
 private:
 	friend class Entity;

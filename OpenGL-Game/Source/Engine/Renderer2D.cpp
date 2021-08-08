@@ -6,6 +6,8 @@
 #include "OpenGLRenderAPI.h"
 #include "VertexBuffer.h"
 
+#include <GLFW/glfw3.h>
+
 Renderer2D::SpriteData Renderer2D::s_SpriteData;
 
 void Renderer2D::Init()

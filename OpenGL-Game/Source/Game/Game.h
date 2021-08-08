@@ -27,6 +27,7 @@ public:
 
 	virtual void OnBegin(Game& game) = 0;
 	virtual void OnUpdate(Game& game, const DeltaTime& dt) = 0;
+	virtual void OnEvent(Game& game, const Event& event) = 0;
 	virtual void OnEnd(Game& game) = 0;
 
 public:
@@ -41,7 +42,10 @@ class GameStateActive : public GameState
 
 	virtual void OnBegin(Game& game) override;
 	virtual void OnUpdate(Game& game, const DeltaTime& dt) override;
+	virtual void OnEvent(Game& game, const Event& event) override;
 	virtual void OnEnd(Game& game) override;
+
+	void Reset(Game& game);
 
 private:
 	std::unique_ptr<GameLevel> m_Level;
@@ -52,6 +56,7 @@ class GameStateMenu : public GameState
 	virtual GameState* Update(Game& game, const DeltaTime& dt) override;
 	virtual void OnBegin(Game& game) override;
 	virtual void OnUpdate(Game& game, const DeltaTime& dt) override;
+	virtual void OnEvent(Game& game, const Event& event) override;
 	virtual void OnEnd(Game& game) override;
 };
 
@@ -61,6 +66,7 @@ class GameStateFinished : public GameState
 
 	virtual void OnBegin(Game& game) override;
 	virtual void OnUpdate(Game& game, const DeltaTime& dt) override;
+	virtual void OnEvent(Game& game, const Event& event) override;
 	virtual void OnEnd(Game& game) override;
 };
 
@@ -86,9 +92,11 @@ private:
 
 private:
 	Scene m_Scene;
-	// Scene* m_Scene;
 
 	GameState* m_GameState;
 	ShaderLibrary m_ShaderLibrary;
 	TextureLibrary m_TextureLibrary;
+
+private:
+	void Reset() noexcept;
 };

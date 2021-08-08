@@ -11,6 +11,8 @@ SceneRegistry::~SceneRegistry() noexcept
 
 	for (auto& pool : m_ComponentPools)
 		delete pool;
+
+	ClassIDGenerator::Reset();
 }
 
 EntityID SceneRegistry::CreateEntity() noexcept
@@ -38,6 +40,7 @@ void SceneRegistry::DestroyEntity(EntityID entity) noexcept
 			pool->Remove(entity);
 	}
 
+	m_EntitiesData[entity].Components.reset();
 	m_FreedEntities.push_back(entity);
 }
 
@@ -54,5 +57,8 @@ bool SceneRegistry::IsEntityValid(EntityID entity) const noexcept
 void SceneRegistry::EachEntity(const std::function<void (EntityID)>& function)
 {
 	for (EntityData& data : m_EntitiesData)
-		function(data.EntityID);
+	{
+		if (IsEntityValid(data.EntityID))
+			function(data.EntityID);
+	}
 }

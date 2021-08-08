@@ -13,10 +13,11 @@ class Scene;
 class ClassIDGenerator
 {
 public:
-	static std::int_fast32_t GetID() noexcept { return ID++; }
+	static std::int_fast32_t GetID() noexcept { return s_ID++; }
+	static void Reset() noexcept { s_ID = 0; }
 
 private:
-	static inline std::int_fast32_t ID = 0;
+	static inline std::int_fast32_t s_ID = 0;
 };
 
 template<typename ClassType>
@@ -107,7 +108,7 @@ ComponentType* SceneRegistry::GetComponent(EntityID entity) const
 	if (!IsEntityValid(entity))
 		throw std::runtime_error("Entity is not valid");
 	else if (!HasComponent<ComponentType>(entity))
-		throw std::runtime_error("Component does not exist");
+		return nullptr;
 
 	auto id = GetID<ComponentType>::Get();
 	void* component = m_ComponentPools[id]->Get(entity);
@@ -123,10 +124,7 @@ void SceneRegistry::RemoveComponent(EntityID entity)
 	auto id = GetID<ComponentType>::Get();
 	m_EntitiesData[entity].Components.reset(id);
 
-	m_ComponentPools[id]->Remove(entity, [](void* component)
-	{
-		reinterpret_cast<ComponentType*>(component)->~ComponentType();
-	});
+	m_ComponentPools[id]->Remove(entity);
 }
 
 template<typename ComponentType>
@@ -139,7 +137,7 @@ void SceneRegistry::EachComponent(const std::function<void (EntityID, ComponentT
 
 	for (EntityData& data : m_EntitiesData)
 	{
-		if (HasComponent<ComponentType>(data.EntityID))
+		if (HasComponent<ComponentType>(data.EntityID) && IsEntityValid(data.EntityID))
 		{
 			ComponentType* component = reinterpret_cast<ComponentType*>(m_ComponentPools[id]->Get(data.EntityID));
 			function(data.EntityID, *component);

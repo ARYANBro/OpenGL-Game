@@ -14,13 +14,18 @@
 			"MIMode": "gdb",
 			"miDebuggerPath": "gdb.exe",
 			"setupCommands": [
+				// {
+				// 	"description": "Enable all-exceptions for gdb",
+				// 	"ignoreFailures": true,
+				// 	"text": "catch throw"
+				// },
 				{
 					"description": "Enable pretty-printing for gdb",
 					"text": "-enable-pretty-printing",
 					"ignoreFailures": true
 				}
 			],
-			"preLaunchTask": "Build debug"
+			"preLaunchTask": "Build debug",
 		},
 		{
 			"name": "Build and debug (release)",

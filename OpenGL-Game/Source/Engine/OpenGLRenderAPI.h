@@ -14,6 +14,7 @@ public:
 	OpenGLRenderAPI(Window& window);
 
 	void Init(Window& window);
+	void Deinit() noexcept;
 	void OnEvent(const Event& event) const noexcept;
 
 	static void SetClearColor(float r, float g, float b, float a) noexcept;

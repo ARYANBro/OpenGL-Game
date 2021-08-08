@@ -13,6 +13,7 @@ public:
 	~Application() noexcept;
 
 	void Start();
+	void Stop() noexcept { m_IsRunning = false; }
 
 	virtual void OnBegin() {}
 	virtual void OnUpdate(const DeltaTime& deltaT) {}
@@ -23,7 +24,6 @@ public:
 	const Window& GetWindow() const noexcept { return m_Window; }
 	const OpenGLRenderAPI& GetOpenGLRenderAPI() const noexcept { return m_RenderAPI; }
 
-
 	Window& GetWindow() noexcept { return m_Window; }
 	OpenGLRenderAPI& GetOpenGLRenderAPI() noexcept { return m_RenderAPI; }
 
@@ -33,4 +33,6 @@ private:
 	Window m_Window;
 	static Application* s_Instance;
 	OpenGLRenderAPI m_RenderAPI;
+
+	bool m_IsRunning;
 };
