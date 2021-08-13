@@ -50,20 +50,26 @@ void Renderer2D::Deinit() noexcept
 	delete s_SpriteData.VertexArray;
 }
 
-void Renderer2D::DrawSprite(const glm::mat4& projection, const glm::mat4& transform, const Texture& texture, glm::vec3 color)
+void Renderer2D::DrawQuad(const glm::mat4& projection, const glm::mat4& transform, const Texture* texture, glm::vec4 color)
 {
 	s_SpriteData.Shader->Bind();
 
-	texture.Bind(0);
-	s_SpriteData.Shader->SetInt("u_Texture", 0);
-	s_SpriteData.Shader->SetFloat3("u_Color", color);
+	if (texture)
+	{
+		texture->Bind(0);
+		s_SpriteData.Shader->SetInt("u_Texture", 0);
+	}
+
+	s_SpriteData.Shader->SetFloat4("u_Color", color);
 	s_SpriteData.Shader->SetMat4("u_ModelTransform", transform);
 	s_SpriteData.Shader->SetMat4("u_ProjectionTransform", projection);
 
 	OpenGLRenderAPI::Render(*s_SpriteData.VertexArray, *s_SpriteData.Shader);
 
 	s_SpriteData.Shader->Unbind();
-	texture.Unbind();
+
+	if (texture)
+		texture->Unbind();
 }
 
 void Renderer2D::RenderScene(Scene& scene, const glm::mat4& projection)
@@ -71,6 +77,6 @@ void Renderer2D::RenderScene(Scene& scene, const glm::mat4& projection)
 	scene.m_Registry.EachComponent<SpriteRendererComponent>([&](EntityID entity, const SpriteRendererComponent& component)
 	{
 		TransformComponent* transform = scene.m_Registry.GetComponent<TransformComponent>(entity);
-		DrawSprite(projection, transform->GetTransform(), *component.Texture, component.Color != glm::vec3(0.0f) ? component.Color : glm::vec3(1.0f));
+		DrawQuad(projection, transform->GetTransform(), component.Texture, component.Color != glm::vec4(0.0f) ? component.Color : glm::vec4(1.0f));
 	});
 }

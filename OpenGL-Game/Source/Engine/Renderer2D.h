@@ -16,7 +16,7 @@ public:
 	static void Init();
 	static void Deinit() noexcept;
 
-	static void DrawSprite(const glm::mat4& projection, const glm::mat4& transform, const Texture& texture, glm::vec3 color = glm::vec3(1.0f));
+	static void DrawQuad(const glm::mat4& projection, const glm::mat4& transform, const Texture* texture = nullptr, glm::vec4 color = glm::vec4(1.0f));
 	static void RenderScene(Scene& scene, const glm::mat4& projection);
 
 private:

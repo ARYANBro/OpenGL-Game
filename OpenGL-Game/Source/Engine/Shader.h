@@ -27,6 +27,7 @@ public:
 	void SetInt(const std::string& name, std::int_fast32_t value) const;
 
 	void SetFloat3(const std::string& name, glm::vec3 value) const;
+	void SetFloat4(const std::string& name, glm::vec4 value) const;
 
 	void SetMat4(const std::string& name, const glm::mat4& matrix) const;
 

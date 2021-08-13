@@ -15,7 +15,7 @@ class ScriptableEntity;
 struct SpriteRendererComponent
 {
 	Texture* Texture;
-	glm::vec3 Color;
+	glm::vec4 Color;
 };
 
 struct TransformComponent
@@ -64,4 +64,12 @@ struct PhysicsComponent
 
 	PhysicsType PhysicsType;
 	std::unique_ptr<Colider> Colider;
+};
+
+struct ParticleComponent
+{
+	std::uint_fast32_t MaxParticles;
+	unsigned int ParticlesPerFrame;
+	glm::vec2 Velocity;
+	float Life;
 };

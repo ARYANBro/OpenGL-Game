@@ -3,6 +3,7 @@
 #include <Engine/Application.h>
 #include <Engine/Shader.h>
 #include <Engine/Texture.h>
+#include <Engine/Particles/ParticleGenerator.h>
 
 #include "BlockAligner.h"
 #include "GameLevel.h"
@@ -27,6 +28,7 @@ public:
 
 	virtual void OnBegin(Game& game) = 0;
 	virtual void OnUpdate(Game& game, const DeltaTime& dt) = 0;
+	virtual void OnRender(Game& game) = 0;
 	virtual void OnEvent(Game& game, const Event& event) = 0;
 	virtual void OnEnd(Game& game) = 0;
 
@@ -42,6 +44,7 @@ class GameStateActive : public GameState
 
 	virtual void OnBegin(Game& game) override;
 	virtual void OnUpdate(Game& game, const DeltaTime& dt) override;
+	virtual void OnRender(Game& game) override;
 	virtual void OnEvent(Game& game, const Event& event) override;
 	virtual void OnEnd(Game& game) override;
 
@@ -49,6 +52,7 @@ class GameStateActive : public GameState
 
 private:
 	std::unique_ptr<GameLevel> m_Level;
+	std::unique_ptr<ParticleGenerator> m_ParticleGenerator;
 };
 
 class GameStateMenu : public GameState
@@ -56,6 +60,7 @@ class GameStateMenu : public GameState
 	virtual GameState* Update(Game& game, const DeltaTime& dt) override;
 	virtual void OnBegin(Game& game) override;
 	virtual void OnUpdate(Game& game, const DeltaTime& dt) override;
+	virtual void OnRender(Game& game) override {}
 	virtual void OnEvent(Game& game, const Event& event) override;
 	virtual void OnEnd(Game& game) override;
 };
@@ -66,6 +71,7 @@ class GameStateFinished : public GameState
 
 	virtual void OnBegin(Game& game) override;
 	virtual void OnUpdate(Game& game, const DeltaTime& dt) override;
+	virtual void OnRender(Game& game) override {}
 	virtual void OnEvent(Game& game, const Event& event) override;
 	virtual void OnEnd(Game& game) override;
 };

@@ -58,7 +58,7 @@ void GameLevel::OnBegin(Scene& scene)
 				tag->Tag = "Block";
 				auto spriteRenderer = block.AddComponent<SpriteRendererComponent>();
 				spriteRenderer->Texture = m_BlockTexture;
-				spriteRenderer->Color = m_ColorScheme[brickID];
+				spriteRenderer->Color = glm::vec4(m_ColorScheme[brickID], 1.0f);
 
 				auto physicsComponent = block.AddComponent<PhysicsComponent>();
 				physicsComponent->Colider = std::make_unique<AABBColider>();
@@ -153,7 +153,7 @@ void GameLevel::Load(Scene& scene) noexcept
 						spriteRenderer = block.AddComponent<SpriteRendererComponent>();
 
 					spriteRenderer->Texture = m_BlockTexture;
-					spriteRenderer->Color = m_ColorScheme[brickID];
+					spriteRenderer->Color = glm::vec4(m_ColorScheme[brickID], 1.0f);
 
 					PhysicsComponent* physicsComponent = block.GetComponent<PhysicsComponent>();
 

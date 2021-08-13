@@ -133,6 +133,9 @@ public:
 		}
 	}
 
+	glm::vec2 GetVelocity() const noexcept { return m_Velocity; }
+	
+
 private:
 	TransformComponent* m_Transform;
 	SpriteRendererComponent* m_SpriteRenderer;

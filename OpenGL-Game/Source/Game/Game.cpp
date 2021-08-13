@@ -89,6 +89,13 @@ void GameStateActive::OnBegin(Game& game)
 	ballPc->GetColider<CircleColider>().SetRadius(15.0f);
 
 	ballPc->PhysicsType = PhysicsType::Kinetic;
+
+	auto ballParticleComponent = ball.AddComponent<ParticleComponent>();
+	ballParticleComponent->Life = 1.0f;
+	ballParticleComponent->MaxParticles = 500.0f;
+	ballParticleComponent->ParticlesPerFrame = 2;
+
+	m_ParticleGenerator = std::make_unique<ParticleGenerator>(ball);
 }
 
 void GameStateActive::OnUpdate(Game& game, const DeltaTime& dt)
@@ -109,17 +116,33 @@ void GameStateActive::OnUpdate(Game& game, const DeltaTime& dt)
 		{
 			auto ballTransform = entity.GetComponent<TransformComponent>();
 			auto physicsComponent = entity.GetComponent<PhysicsComponent>();
+			auto particleComponent = entity.GetComponent<ParticleComponent>();
+			auto scriptComponent = entity.GetComponent<ScriptComponent>();
 
 			physicsComponent->GetColider<CircleColider>().SetPosition(ballTransform->Translation);
 
 			if (ballTransform->Translation.y > (game.GetWindow().GetHeight() - ballTransform->Scale.y))
 				Reset(game);
+
+			BallScript& ballScript = static_cast<BallScript&>(*scriptComponent->Script);
+			particleComponent->Velocity = ballScript.GetVelocity() * 0.1f;
 		}
 	});
 
 	PhysicsSystem::Update(game.m_Scene);
+
+	game.m_Scene.GetRegistry().EachComponent<ParticleComponent>([&](EntityID e, ParticleComponent& particleComponent)
+	{
+		m_ParticleGenerator->OnUpdate(game.m_Scene.GetEntity(e), dt);
+	});
+	
 	m_Level->OnUpdate(game.m_Scene, dt);
 	game.m_Scene.OnUpdate(dt);
+}
+
+void GameStateActive::OnRender(Game& game)
+{
+	m_ParticleGenerator->OnRender();
 }
 
 void GameStateActive::OnEvent(Game& game, const Event& event)
@@ -264,6 +287,7 @@ void Game::OnRender()
 
 	glm::mat4 projection = glm::ortho(0.0f, right, top, 0.0f);
 	Renderer2D::RenderScene(m_Scene, projection);
+	m_GameState->OnRender(*this);
 }
 
 void Game::OnEnd()
